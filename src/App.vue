@@ -1,6 +1,7 @@
         <script setup>
+
         import { ref, reactive } from 'vue';
-        
+        import Calculadora from './componentes/calculadora.vue'
         const estado = reactive({
           numero1: '',
           numero2: '',
@@ -31,58 +32,18 @@
               return 'operação invalida'
           }
         }
+
+        console.log(estado.numero1)
         </script>
         
 <template>
-  <div class="body">
-    <div class="container">
-      <h1>Calculadora do Álvaro</h1>
-
-      <div class="inputs">
-        <input  type="number" placeholder="Insira o primeiro número" v-model="estado.numero1">
-        <input  type="number" placeholder="Insira o segundo número" v-model="estado.numero2">
-        Escolha uma operação:
-        <select   v-model="estado.operacao">
-          <option value="multiplicacao">*</option>
-          <option value="divisao">/</option>
-          <option value="soma">+</option>
-          <option value="subtracao">-</option>
-        </select>
-        <p>Resultado: {{ calcularResultado() }}</p>
-      </div>
-
-    </div>
-  </div>
+  <Calculadora
+  :numeroUm=" estado.numero1 "
+  :editNumero1="evento => estado.numero1 = evento.target.value"
+  :editNumero2="evento => estado.numero2 = evento.target.value"
+  :numeroDois=" estado.numero2 "
+  :operacao="estado.operacao"
+  :operacaoTot="evento => estado.operacao = evento.target.value"
+  :calcResultado="calcularResultado()"
+  />
 </template>
-
-
-
-<style scoped>
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
-}
-.container{
-    max-width: 960px;
-    width: 100%;
-    margin: 0px auto;
-}
-.container h1{
-  margin-bottom: 32px;
-}
-.inputs{
-  width: 640px;
-  align-items: center;
-  display: block;
-}
-.inputs input{
-  border-radius: 10px;
-  border: 1px solid ;
-  margin-bottom: 16px;
-  width: 100%;
-  padding: 12px;
-
-}
-</style>
